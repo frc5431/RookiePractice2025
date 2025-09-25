@@ -9,6 +9,7 @@ import com.ctre.phoenix6.hardware.TalonFX;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.subsystem.Motor;
 
@@ -20,13 +21,15 @@ public class RobotContainer {
     configureBindings();
   }
 
-  private void configureBindings() {
-    control.a().onTrue(new InstantCommand(() -> motor1.runMotor(0.5)));
-    
+  public void onInitialize() {
+  motor1.setDefaultCommand(new RunCommand(() -> motor1.runMotor(0), motor1));
   }
-  
+
+  private void configureBindings() {
+    control.a().whileTrue(new RunCommand(() -> motor1.runMotor(0.5)));
+  }
+
   public Command getAutonomousCommand() {
     return Commands.print("No autonomous command configured");
   }
 }
-    
