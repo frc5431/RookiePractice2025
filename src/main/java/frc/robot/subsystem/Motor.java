@@ -12,11 +12,11 @@ public class Motor extends SubsystemBase{
     
     public TalonFXConfiguration motorOneConfig;
 
-    public Motor(TalonFX talon) {
-        this.motor1 = talon;
-        this.motor2 = talon;
-        this.motor3 = talon;
-        this.motor4 = talon;
+    public Motor(TalonFX talon1, TalonFX talon2, TalonFX talon3, TalonFX talon4) {
+        this.motor1 = talon1;
+        this.motor2 = talon2;
+        this.motor3 = talon3;
+        this.motor4 = talon4;
     }
 
     public void runMotor(double speed) {
