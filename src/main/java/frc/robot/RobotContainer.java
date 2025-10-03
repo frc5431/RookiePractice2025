@@ -10,15 +10,16 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import frc.robot.subsystem.Motor;
+import frc.robot.subsystem.Drive;
 
 public class RobotContainer {
-  public Motor motor1 = new Motor(
-    new TalonFX(5), 
-    new TalonFX(6), 
-    new TalonFX(7), 
-    new TalonFX(8)
-  );
+  public Drive drive = new Drive(
+      new TalonFX(Constants.MotorConstants.frontLeftDriveId),
+      new TalonFX(
+          Constants.MotorConstants.frontRightDriveId),
+      new TalonFX(
+          Constants.MotorConstants.backLeftDriveId),
+      new TalonFX(Constants.MotorConstants.backRightDriveId));
   public CommandXboxController control = new CommandXboxController(0);
 
   public RobotContainer() {
@@ -26,11 +27,11 @@ public class RobotContainer {
   }
 
   public void onInitialize() {
-    motor1.setDefaultCommand(new RunCommand(() -> motor1.runMotor(0), motor1));
+    drive.setDefaultCommand(new RunCommand(() -> drive.runMotor(0), drive));
   }
 
   private void configureBindings() {
-    control.a().whileTrue(new RunCommand(() -> motor1.runMotor(0.5)));
+    control.a().whileTrue(new RunCommand(() -> drive.runMotor(0.1)));
   }
 
   public Command getAutonomousCommand() {
